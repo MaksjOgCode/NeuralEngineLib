@@ -2,11 +2,13 @@ cmake_minimum_required ( VERSION 3.28 )
 
 project (
     NeuralEngineLib
-    VERSION 1.0.0
+    VERSION 2.0.0
     DESCRIPTION "A library for performing basic mathematical operations. The component responsible for performing calculations (with the possibility of enabling GPU support). Utilities such as logging, diagnostics, and auxiliary functions (with the option to enable logging)."
-    HOMEPAGE_URL "NO-LOAD"
+    HOMEPAGE_URL "https://github.com/MaksjOgCode/NeuralEngineLib"
     LANGUAGES CXX
 )
+
+include ( GNUInstallDirs )
 
 # NEURAL ENGINE LIB ENVIRONMENT:
 set ( NEL_PATH_INCLUDE "${CMAKE_CURRENT_SOURCE_DIR}/include" )
@@ -18,7 +20,7 @@ list (
     "${CMAKE_CURRENT_SOURCE_DIR}/include/include_utils"
 )
 
-# CONFIGURATION <[FULL] library (headder-only)>
+# ----- COMPONENT: Full Library -----
 add_library ( NeuralEngineLib INTERFACE )
 foreach ( component IN LISTS NEL_ULTIMATE_PATH_INCLUDE )
     target_include_directories (
@@ -29,30 +31,30 @@ foreach ( component IN LISTS NEL_ULTIMATE_PATH_INCLUDE )
 endforeach ()
 add_library ( NeuralEngineLib::NeuralEngineLib ALIAS NeuralEngineLib )
 
-# CONFIGURATION <Component [::backend] library (headder-only)>
+# ----- COMPONENT: Backend -----
 add_library ( NeuralEngineLib_Backend INTERFACE )
 target_include_directories (
     NeuralEngineLib_Backend INTERFACE
     $<BUILD_INTERFACE:${NEL_PATH_INCLUDE}/include_backend>
-    $<INSTALL_INTERFACE:${NEL_PATH_INCLUDE}/include_backend>
+    $<INSTALL_INTERFACE:include/include_backend>
 )
 add_library ( NeuralEngineLib::Backend ALIAS NeuralEngineLib_Backend )
 
-# CONFIGURATION <Component [::core] library (headder-only)>
+# ----- COMPONENT: Core -----
 add_library ( NeuralEngineLib_Core INTERFACE )
 target_include_directories (
     NeuralEngineLib_Core INTERFACE
     $<BUILD_INTERFACE:${NEL_PATH_INCLUDE}/include_core>
-    $<INSTALL_INTERFACE:${NEL_PATH_INCLUDE}/include_core>
+    $<INSTALL_INTERFACE:include/include_core>
 )
 add_library ( NeuralEngineLib::Core ALIAS NeuralEngineLib_Core )
 
-# CONFIGURATION <Component [::utils] library (headder-only)>
+# ----- COMPONENT: Utils -----
 add_library ( NeuralEngineLib_Utils INTERFACE )
 target_include_directories (
     NeuralEngineLib_Utils INTERFACE
     $<BUILD_INTERFACE:${NEL_PATH_INCLUDE}/include_utils>
-    $<INSTALL_INTERFACE:${NEL_PATH_INCLUDE}/include_utils>
+    $<INSTALL_INTERFACE:include/include_utils>
 )
 add_library ( NeuralEngineLib::Utils ALIAS NeuralEngineLib_Utils )
 
@@ -76,5 +78,47 @@ target_compile_options (
 
 
 
-# CONFIGURATION <example>
-add_subdirectory ( ${CMAKE_CURRENT_SOURCE_DIR}/example )
+# INSTALLING CONFIG PACKAGE:
+set_target_properties(NeuralEngineLib_Core     PROPERTIES EXPORT_NAME Core)
+set_target_properties(NeuralEngineLib_Backend  PROPERTIES EXPORT_NAME Backend)
+set_target_properties(NeuralEngineLib_Utils    PROPERTIES EXPORT_NAME Utils)
+
+install (
+    TARGETS
+        NeuralEngineLib_Backend
+        NeuralEngineLib_Core
+        NeuralEngineLib_Utils
+    EXPORT NeuralEngineLibTargets
+)
+
+install (
+    EXPORT      NeuralEngineLibTargets
+    NAMESPACE   NeuralEngineLib::
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/NeuralEngineLib
+)
+
+include ( CMakePackageConfigHelpers )
+
+#write_basic_package_version_file(
+#    "${CMAKE_CURRENT_BINARY_DIR}/NeuralEngineLibConfigVersion.cmake"
+#    VERSION ${PROJECT_VERSION}
+#    COMPATIBILITY SameMajorVersion
+#)
+
+configure_package_config_file (
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/NeuralEngineLibConfig.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/NeuralEngineLibConfig.cmake"
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/NeuralEngineLib
+)
+
+install (
+    FILES
+        "${CMAKE_CURRENT_BINARY_DIR}/NeuralEngineLibConfig.cmake"
+#        "${CMAKE_CURRENT_BINARY_DIR}/NeuralEngineLibConfigVersion.cmake"
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/NeuralEngineLib
+)
+
+install (
+    DIRECTORY   ${CMAKE_CURRENT_SOURCE_DIR}/include/
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)

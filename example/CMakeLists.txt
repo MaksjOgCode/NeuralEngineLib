@@ -5,5 +5,8 @@ project (
     LANGUAGES CXX
 )
 
+set (CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../install")
+find_package ( NeuralEngineLib REQUIRED COMPONENTS Core Backend Utils )
+
 add_executable ( example example.cpp )
-target_link_libraries(example PRIVATE NeuralEngineLib::NeuralEngineLib)
+target_link_libraries ( example PRIVATE NeuralEngineLib::Core NeuralEngineLib::Backend NeuralEngineLib::Utils )
