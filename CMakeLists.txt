@@ -2,7 +2,7 @@ cmake_minimum_required ( VERSION 3.28 )
 
 project (
     NeuralEngineLib
-    VERSION 3.0.0
+    VERSION 4.0.0
     DESCRIPTION "A library for performing basic mathematical operations. The component responsible for performing calculations (with the possibility of enabling GPU support). Utilities such as logging, diagnostics, and auxiliary functions (with the option to enable logging)."
     HOMEPAGE_URL "https://github.com/MaksjOgCode/NeuralEngineLib"
     LANGUAGES CXX
