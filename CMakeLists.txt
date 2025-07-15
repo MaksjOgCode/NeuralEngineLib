@@ -60,7 +60,7 @@ add_library ( NeuralEngineLib::Utils ALIAS NeuralEngineLib_Utils )
 
 
 
-# OPTIONS:
+# OPTIONS LIBRARY:
 option ( NEURAL_ENGINE_ENABLE_LOGGING "The option to enable logging" OFF )
 option ( NEURAL_ENGINE_USE_GPU "Option to enable GPU support" OFF )
 
@@ -122,3 +122,12 @@ install (
     DIRECTORY   ${CMAKE_CURRENT_SOURCE_DIR}/include/
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
+
+
+
+# CTEST:
+option ( BUILD_TESTS "Enable build unit test" OFF )
+if ( BUILD_TESTS )
+    enable_testing()
+    add_subdirectory ( tests )
+endif ()
