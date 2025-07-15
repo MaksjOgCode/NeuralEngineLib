@@ -1,6 +1,6 @@
 # 🧠 NeuralEngineLib — Header-only C++ Library
 
-> ⚙️ Version: **v3.0.0**  
+> ⚙️ Version: **v4.0.0**  
 > 📦 Type: **header-only**, component-based  
 > 🧩 Options: `NEURAL_ENGINE_USE_GPU`, `NEURAL_ENGINE_ENABLE_LOGGING`
 
@@ -76,6 +76,13 @@ target_link_libraries(application PRIVATE
     NeuralEngineLib::Backend
     NeuralEngineLib::Utils 
 )
+```
+### 🧪 Building & Running Tests
+
+```bash
+cmake -B build -G "Ninja" -DBUILD_TESTS=ON
+cmake --build build
+ctest --test-dir build
 ```
 
 ---
