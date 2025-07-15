@@ -1,6 +1,6 @@
 # 🧠 NeuralEngineLib — Header-only C++ Library
 
-> ⚙️ Version: **v1.0.0**  
+> ⚙️ Version: **v2.0.0**  
 > 📦 Type: **header-only**, component-based  
 > 🧩 Options: `NEURAL_ENGINE_USE_GPU`, `NEURAL_ENGINE_ENABLE_LOGGING`
 
