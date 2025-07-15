@@ -1,6 +1,6 @@
 # 🧠 NeuralEngineLib — Header-only C++ Library
 
-> ⚙️ Version: **v2.0.0**  
+> ⚙️ Version: **v3.0.0**  
 > 📦 Type: **header-only**, component-based  
 > 🧩 Options: `NEURAL_ENGINE_USE_GPU`, `NEURAL_ENGINE_ENABLE_LOGGING`
 
@@ -35,6 +35,15 @@ target_link_libraries(YourApp PRIVATE
 
 ```cmake
 target_link_libraries(YourApp PRIVATE NeuralEngineLib::NeuralEngineLib)
+```
+
+---
+
+## ✅ **Full support for `find_package(...)` with versioning**
+### ✅ `NeuralEngineLibConfigVersion.cmake` now included
+✅ Support for version-aware installation and client usage:
+```cmake
+  find_package(NeuralEngineLib 3.0.0 REQUIRED COMPONENTS Core Backend Utils)
 ```
 
 ---

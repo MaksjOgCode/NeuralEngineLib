@@ -2,7 +2,7 @@ cmake_minimum_required ( VERSION 3.28 )
 
 project (
     NeuralEngineLib
-    VERSION 2.0.0
+    VERSION 3.0.0
     DESCRIPTION "A library for performing basic mathematical operations. The component responsible for performing calculations (with the possibility of enabling GPU support). Utilities such as logging, diagnostics, and auxiliary functions (with the option to enable logging)."
     HOMEPAGE_URL "https://github.com/MaksjOgCode/NeuralEngineLib"
     LANGUAGES CXX
@@ -99,11 +99,11 @@ install (
 
 include ( CMakePackageConfigHelpers )
 
-#write_basic_package_version_file(
-#    "${CMAKE_CURRENT_BINARY_DIR}/NeuralEngineLibConfigVersion.cmake"
-#    VERSION ${PROJECT_VERSION}
-#    COMPATIBILITY SameMajorVersion
-#)
+write_basic_package_version_file(
+    "${CMAKE_CURRENT_BINARY_DIR}/NeuralEngineLibConfigVersion.cmake"
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY SameMajorVersion
+)
 
 configure_package_config_file (
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake/NeuralEngineLibConfig.cmake.in"
@@ -114,7 +114,7 @@ configure_package_config_file (
 install (
     FILES
         "${CMAKE_CURRENT_BINARY_DIR}/NeuralEngineLibConfig.cmake"
-#        "${CMAKE_CURRENT_BINARY_DIR}/NeuralEngineLibConfigVersion.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/NeuralEngineLibConfigVersion.cmake"
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/NeuralEngineLib
 )
 
